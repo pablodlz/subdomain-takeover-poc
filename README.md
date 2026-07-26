@@ -144,11 +144,19 @@ Since no file here names a target, one repo serves every finding on every platfo
 | `.nojekyll` | GitHub Pages: serve files verbatim (also stops Jekyll dropping `_headers`/`_redirects`) |
 | `CNAME.example` | GitHub Pages only — copy to `CNAME` per engagement |
 | `.gitignore` | blocks `CNAME`, screenshots and CLI state — everything that could name a target |
+| `SECURITY.md` | written for the domain owner who lands on the PoC: what happened, what was *not* done, how to fix it, how to request teardown. Linked from the page footer. |
+| `LICENSE` | MIT |
 
 ## Scope
 
 Authorized, in-scope bug bounty testing only. Claiming a dangling record on a host you have no
-permission to test is unauthorized access in most jurisdictions, program or not.
+permission to test is unauthorized access in most jurisdictions, program or not. A permissive
+licence is not authorization. See [SECURITY.md](SECURITY.md) for the full stance — and point
+domain owners there, since it is written for them.
+
+## Licence
+
+[MIT](LICENSE).
 
 ---
 

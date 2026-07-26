@@ -265,6 +265,9 @@
     mailEl.href = 'mailto:' + CONFIG.contact;
     mailEl.textContent = CONFIG.contact;
   }
+  // the one link a confused domain owner actually needs
+  var secEl = document.getElementById('f-security');
+  if (secEl) secEl.href = CONFIG.repo + '/blob/main/SECURITY.md';
 
   readOwnHeaders();
 

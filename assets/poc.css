@@ -270,6 +270,20 @@ button.done { color: var(--amber); border-color: var(--amber); }
 .foot p { margin: 0 0 0.7rem; }
 .foot strong { color: var(--fg-dim); }
 
+/* the one line a confused domain owner needs to find */
+.whose {
+  padding: 0.7rem 0.9rem;
+  border-left: 2px solid var(--fg-dim);
+  background: rgba(125, 250, 176, 0.05);
+}
+
+.whose strong { color: var(--fg); }
+
+.whose a {
+  color: var(--fg);
+  border-bottom-color: var(--fg-dim);
+}
+
 .foot a {
   color: var(--fg-dim);
   text-decoration: none;
