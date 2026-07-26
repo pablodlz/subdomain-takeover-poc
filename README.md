@@ -58,6 +58,15 @@ gitignored on purpose. Copy `CNAME.example` → `CNAME`, then `git add -f CNAME`
 that the hostname is permanently in this repo's public history — delete the repo after
 remediation. Every other platform keeps the hostname in its dashboard, where it belongs.
 
+### Local preview
+
+The assets are referenced with absolute paths, so `file://` won't load them. Serve the
+directory instead:
+
+```bash
+python -m http.server 8791
+```
+
 ## What it gives you
 
 | | |
@@ -107,7 +116,6 @@ Since no file here names a target, one repo serves every finding on every platfo
 | `.nojekyll` | GitHub Pages: serve files verbatim (also stops Jekyll dropping `_headers`/`_redirects`) |
 | `CNAME.example` | GitHub Pages only — copy to `CNAME` per engagement |
 | `.gitignore` | blocks `CNAME`, screenshots and CLI state — everything that could name a target |
-| `.claude/launch.json` | local preview: `python -m http.server 8791` (assets use absolute paths, so `file://` won't do) |
 
 ## Scope
 

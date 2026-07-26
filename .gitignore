@@ -36,7 +36,9 @@
 # ---------------------------------------------------------------------------
 # Local tooling
 # ---------------------------------------------------------------------------
-.claude/settings.local.json
+# Agent/editor state is local, same as .vscode and .idea below. The local
+# preview command lives in the README instead of a committed config file.
+.claude/
 node_modules/
 .cache/
 *.log
