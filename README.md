@@ -82,10 +82,11 @@ python -m http.server 8791
 | **Explicit good-faith notice** | Anyone landing on the page (including the client's SOC at 3am) immediately sees this is authorized research, with a contact address. |
 | **No data collection** | One same-origin `HEAD` to itself, and that is the entire network activity. No analytics, no beacon, no fonts, no CDN, no serverless function, no visitor logging. Auditable in one read of `assets/poc.js`. |
 
-## Use as a template
+## Identity
 
-Click **Use this template** (or fork), then change the identity. Almost everything is driven
-from one object — `CONFIG` at the top of [`assets/poc.js`](assets/poc.js):
+This is a template for my own findings, so my details are baked in deliberately — a PoC with
+nobody's name on it is worse than no PoC. Everything the page renders is driven from one
+object, `CONFIG` at the top of [`assets/poc.js`](assets/poc.js):
 
 ```js
 var CONFIG = {
@@ -96,17 +97,18 @@ var CONFIG = {
 };
 ```
 
-That covers the footer, the signature line, the devtools banner, the report block and the
-easter egg. Three things sit outside JavaScript's reach and need editing by hand:
+Those four fields feed the footer, the signature line, the devtools banner, the report block
+and the easter egg. Three places sit outside JavaScript's reach, so a spin-off copy needs them
+edited by hand:
 
 | what | where | note |
 | --- | --- | --- |
-| ASCII banner | `<pre class="banner">` in `index.html` **and** `404.html` | regenerate with `figlet -f standard yourhandle`, then append `was here.` to the last line |
+| ASCII banner | `<pre class="banner">` in `index.html` **and** `404.html` | regenerate with `figlet -f standard <handle>`, then append `was here.` to the last line |
 | `<meta name="author">` | `index.html`, `404.html` | one line each |
 | `X-PoC-Researcher` / `X-PoC-Contact` | `vercel.json`, `_headers` | keep the two in sync |
 
-Nothing else is personalised, and no file names a target — so a fresh copy is publishable
-as-is.
+The identity is the only personalised part. No file names a target, so every copy is
+publishable as-is.
 
 ## Hard rules
 
