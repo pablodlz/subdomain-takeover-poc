@@ -82,6 +82,32 @@ python -m http.server 8791
 | **Explicit good-faith notice** | Anyone landing on the page (including the client's SOC at 3am) immediately sees this is authorized research, with a contact address. |
 | **No data collection** | One same-origin `HEAD` to itself, and that is the entire network activity. No analytics, no beacon, no fonts, no CDN, no serverless function, no visitor logging. Auditable in one read of `assets/poc.js`. |
 
+## Use as a template
+
+Click **Use this template** (or fork), then change the identity. Almost everything is driven
+from one object — `CONFIG` at the top of [`assets/poc.js`](assets/poc.js):
+
+```js
+var CONFIG = {
+  handle:  'pablodlz',
+  contact: 'pablogalerani@gmail.com',
+  profile: 'https://github.com/pablodlz',
+  repo:    'https://github.com/pablodlz/subdomain-takeover-poc'
+};
+```
+
+That covers the footer, the signature line, the devtools banner, the report block and the
+easter egg. Three things sit outside JavaScript's reach and need editing by hand:
+
+| what | where | note |
+| --- | --- | --- |
+| ASCII banner | `<pre class="banner">` in `index.html` **and** `404.html` | regenerate with `figlet -f standard yourhandle`, then append `was here.` to the last line |
+| `<meta name="author">` | `index.html`, `404.html` | one line each |
+| `X-PoC-Researcher` / `X-PoC-Contact` | `vercel.json`, `_headers` | keep the two in sync |
+
+Nothing else is personalised, and no file names a target — so a fresh copy is publishable
+as-is.
+
 ## Hard rules
 
 - **Never log visitors.** Every platform puts serverless functions and analytics one click

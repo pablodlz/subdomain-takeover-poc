@@ -1,5 +1,5 @@
-/* pablodlz — takeover PoC runtime. Host-agnostic: Vercel, Netlify,
-   Cloudflare Pages, GitHub Pages, whatever the dangling record points at.
+/* Takeover PoC runtime. Host-agnostic: Vercel, Netlify, Cloudflare Pages,
+   GitHub Pages, whatever the dangling record points at.
 
    Renders the evidence straight from the browser so a single screenshot
    proves the hostname, the path and the timestamp — the repo never has to
@@ -13,11 +13,17 @@
   'use strict';
 
   // ------------------------------------------------------------------
-  // identity. edit once, never again.
+  // IDENTITY — the only thing to change when reusing this template.
+  // Everything the page renders (footer, signature, devtools banner,
+  // report block, easter egg) is driven from here.
+  // Three places stay outside JS reach; see "Use as a template" in the
+  // README: the <pre class="banner"> ASCII art, <meta name="author">,
+  // and the X-PoC-* values in vercel.json / _headers.
   // ------------------------------------------------------------------
   var CONFIG = {
     handle: 'pablodlz',
     contact: 'pablogalerani@gmail.com',
+    profile: 'https://github.com/pablodlz',
     repo: 'https://github.com/pablodlz/subdomain-takeover-poc'
   };
 
@@ -248,6 +254,18 @@
   var apexEl = document.querySelector('.apex');
   if (apexEl) apexEl.textContent = apex;
 
+  // footer identity, driven from CONFIG so the template has one source of truth
+  var profileEl = document.getElementById('f-profile');
+  if (profileEl) {
+    profileEl.href = CONFIG.profile;
+    profileEl.textContent = CONFIG.profile.replace(/^https?:\/\//, '');
+  }
+  var mailEl = document.getElementById('f-mail');
+  if (mailEl) {
+    mailEl.href = 'mailto:' + CONFIG.contact;
+    mailEl.textContent = CONFIG.contact;
+  }
+
   readOwnHeaders();
 
   // ------------------------------------------------------------------
@@ -380,7 +398,7 @@
   // ------------------------------------------------------------------
   try {
     console.log(
-      '%c pablodlz was here. ',
+      '%c ' + CONFIG.handle + ' was here. ',
       'background:#05080a;color:#7dfab0;font:bold 14px monospace;padding:6px 10px;border:1px solid #7dfab0'
     );
     console.log(
