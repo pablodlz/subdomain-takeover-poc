@@ -1,0 +1,311 @@
+/* pablodlz — takeover PoC stylesheet. self-contained, no external deps. */
+
+:root {
+  --bg: #05080a;
+  --bg-soft: #0a1013;
+  --fg: #7dfab0;
+  --fg-dim: #3f8a63;
+  --fg-mute: #2a5a42;
+  --amber: #ffb454;
+  --red: #ff5f6d;
+  --line: #143024;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.65 var(--mono);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, #0d2a1e 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 110%, #0a1f18 0%, transparent 70%);
+  min-height: 100vh;
+}
+
+/* ---- CRT overlay ---- */
+.crt {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.22) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  mix-blend-mode: multiply;
+  animation: flicker 5.5s infinite steps(1);
+}
+
+@keyframes flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.82; }
+  98% { opacity: 1; }
+  99% { opacity: 0.9; }
+}
+
+/* ---- layout ---- */
+.term {
+  position: relative;
+  z-index: 1;
+  max-width: 78ch;
+  margin: 0 auto;
+  padding: 6vh 1.25rem 8vh;
+}
+
+.banner {
+  margin: 0;
+  font-size: clamp(7px, 1.75vw, 13px);
+  line-height: 1.22;
+  color: var(--fg);
+  text-shadow: 0 0 6px rgba(125, 250, 176, 0.28);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.tagline {
+  margin: 0.9rem 0 2.4rem;
+  color: var(--fg-mute);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.1rem;
+}
+
+/* ---- boot log ---- */
+.boot ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.boot li {
+  color: var(--fg-dim);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.boot li::before {
+  content: "$ ";
+  color: var(--fg-mute);
+}
+
+.boot li.out::before { content: "  "; }
+.boot li.hit { color: var(--amber); }
+.boot li.hit::before { content: "  " ; }
+.boot li.cursor::after {
+  content: "\2588";
+  animation: blink 1s steps(1) infinite;
+  color: var(--fg);
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---- verdict ---- */
+.verdict { margin: 2.4rem 0 0; }
+
+.verdict h1 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.15rem, 4.2vw, 1.7rem);
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 18px rgba(125, 250, 176, 0.35);
+}
+
+.verdict .ok { color: var(--amber); }
+
+.lede {
+  margin: 0;
+  color: var(--fg-dim);
+  max-width: 62ch;
+}
+
+.lede strong { color: var(--fg); font-weight: 600; }
+
+/* ---- sections ---- */
+h2 {
+  margin: 2.6rem 0 0.9rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  font-weight: 500;
+}
+
+/* ---- evidence table ---- */
+.evidence dl {
+  display: grid;
+  grid-template-columns: minmax(9rem, 15ch) 1fr;
+  gap: 0.15rem 1.25rem;
+  margin: 0;
+  border-left: 2px solid var(--line);
+  padding-left: 1.1rem;
+}
+
+.evidence dt {
+  color: var(--fg-mute);
+  font-size: 0.85rem;
+}
+
+.evidence dd {
+  margin: 0;
+  color: var(--fg);
+  word-break: break-all;
+}
+
+.evidence dd.fp {
+  color: var(--amber);
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 34rem) {
+  .evidence dl { grid-template-columns: 1fr; gap: 0 0; }
+  .evidence dt { margin-top: 0.7rem; }
+}
+
+/* ---- buttons ---- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.6rem;
+}
+
+button {
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--fg-mute);
+  padding: 0.45rem 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+button::before { content: "[ "; color: var(--fg-mute); }
+button::after  { content: " ]"; color: var(--fg-mute); }
+
+button:hover,
+button:focus-visible {
+  background: rgba(125, 250, 176, 0.09);
+  border-color: var(--fg);
+  outline: none;
+}
+
+button.done { color: var(--amber); border-color: var(--amber); }
+
+.hint {
+  color: var(--fg-mute);
+  opacity: 0.7;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.warn {
+  margin: 1rem 0 0;
+  padding: 0.7rem 0.9rem;
+  border-left: 2px solid var(--amber);
+  background: rgba(255, 180, 84, 0.06);
+  color: var(--amber);
+  font-size: 0.82rem;
+}
+
+.warn code { color: inherit; }
+
+.headers,
+.verbose {
+  margin: 1.2rem 0 0;
+  padding: 1rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  color: var(--fg-dim);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 22rem;
+  overflow: auto;
+}
+
+.headers {
+  margin-top: 0;
+  color: var(--fg);
+  max-height: none;
+}
+
+/* ---- impact ---- */
+.impact ul, .impact ol {
+  margin: 0;
+  padding-left: 1.4rem;
+  color: var(--fg-dim);
+}
+
+.impact li { margin-bottom: 0.45rem; }
+.impact li::marker { color: var(--fg-mute); }
+.impact strong { color: var(--fg); }
+.impact code {
+  color: var(--amber);
+  font-size: 0.92em;
+}
+
+/* ---- footer ---- */
+.foot {
+  margin-top: 3.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  color: var(--fg-mute);
+}
+
+.foot p { margin: 0 0 0.7rem; }
+.foot strong { color: var(--fg-dim); }
+
+.foot a {
+  color: var(--fg-dim);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--fg-mute);
+}
+
+.foot a:hover { color: var(--fg); }
+
+.sig {
+  margin-top: 1.3rem;
+  color: var(--fg-mute);
+  opacity: 0.65;
+  font-size: 0.75rem;
+}
+
+/* ---- glitch easter egg ---- */
+.glitch { animation: glitch 0.42s steps(2) 3; }
+
+@keyframes glitch {
+  0%   { transform: none; filter: none; }
+  25%  { transform: translate(-2px, 1px); filter: hue-rotate(60deg); }
+  50%  { transform: translate(2px, -1px); filter: invert(1); }
+  75%  { transform: translate(-1px, -2px); filter: hue-rotate(-60deg); }
+  100% { transform: none; filter: none; }
+}
+
+/* ---- accessibility ---- */
+@media (prefers-reduced-motion: reduce) {
+  .crt { animation: none; }
+  .boot li.cursor::after { animation: none; }
+  .glitch { animation: none; }
+}
+
+@media print {
+  .crt { display: none; }
+  html, body { background: #fff; color: #000; }
+  .banner, .verdict h1 { text-shadow: none; color: #000; }
+  .evidence dd, .lede strong { color: #000; }
+}

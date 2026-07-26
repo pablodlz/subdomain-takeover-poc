@@ -2,17 +2,18 @@
 <!--
   ============================================================
    pablodlz was here.
-   Authorized security research artifact — Bug Bounty PoC.
-   If you are reading this, this hostname was pointing at an
-   unclaimed third-party service. It has been claimed by a
-   researcher, not by an attacker. Nothing was exfiltrated.
+   This is the catch-all handler: every unmapped path on this
+   hostname is served from an origin I control. That is the
+   whole point of the proof of concept.
+   Keep this file byte-identical to index.html except for the
+   data-notfound="1" attribute below.
   ============================================================
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Subdomain Takeover — Proof of Concept</title>
+<title>Subdomain Takeover — Proof of Concept (any path)</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="author" content="pablodlz">
 <meta name="description" content="Authorized bug bounty proof of concept for a dangling DNS record / subdomain takeover.">
@@ -23,7 +24,7 @@
 <body>
 <div class="crt" aria-hidden="true"></div>
 
-<main class="term" data-notfound="0">
+<main class="term" data-notfound="1">
 
   <pre class="banner" aria-label="pablodlz was here">
                _      _             _  _

@@ -1,0 +1,10 @@
+# Netlify / Cloudflare Pages equivalent of vercel.json -> headers.
+# Keep the two in sync. Deliberately NO Strict-Transport-Security: setting
+# HSTS on a hostname you do not own can break the owner's HTTP services
+# after teardown, because browsers cache the policy.
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Cache-Control: no-store, max-age=0, must-revalidate
+  X-PoC-Researcher: pablodlz
+  X-PoC-Contact: mailto:pablogalerani@gmail.com
+  X-PoC-Notice: Authorized bug bounty proof of concept for a dangling DNS record. Nothing is collected or logged. Delete the DNS record, then request teardown.

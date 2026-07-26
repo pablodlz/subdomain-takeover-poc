@@ -1,0 +1,53 @@
+# ---------------------------------------------------------------------------
+# Never commit anything that names a target.
+# ---------------------------------------------------------------------------
+
+# The GitHub Pages CNAME file contains the victim hostname and would stay in
+# the public git history forever. Ignored on purpose: the Vercel/Netlify flow
+# keeps the hostname in the dashboard instead.
+# Only if the dangling record points at *.github.io do you need it, and then:
+#   git add -f CNAME
+# ...accepting that the target is permanently disclosed in this repo.
+/CNAME
+
+# Screenshots, curl dumps, report drafts. These name the target. Keep them
+# local, attach them to the report, never push them.
+/evidence/
+/screenshots/
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.pdf
+*.har
+
+# ---------------------------------------------------------------------------
+# Platform CLI state and secrets
+# ---------------------------------------------------------------------------
+.vercel/
+.netlify/
+.wrangler/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---------------------------------------------------------------------------
+# Local tooling
+# ---------------------------------------------------------------------------
+.claude/settings.local.json
+node_modules/
+.cache/
+*.log
+
+# ---------------------------------------------------------------------------
+# Editors / OS
+# ---------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,5 @@
+# This host is temporarily serving an authorized bug bounty proof of concept.
+# Do not index it — the PoC must not outlive the report or pollute the
+# domain owner's search results.
+User-agent: *
+Disallow: /

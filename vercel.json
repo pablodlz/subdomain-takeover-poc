@@ -1,0 +1,33 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0, must-revalidate"
+        },
+        {
+          "key": "X-PoC-Researcher",
+          "value": "pablodlz"
+        },
+        {
+          "key": "X-PoC-Contact",
+          "value": "mailto:pablogalerani@gmail.com"
+        },
+        {
+          "key": "X-PoC-Notice",
+          "value": "Authorized bug bounty proof of concept for a dangling DNS record. Nothing is collected or logged. Delete the DNS record, then request teardown."
+        }
+      ]
+    }
+  ]
+}

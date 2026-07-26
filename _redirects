@@ -1,0 +1,4 @@
+# Netlify: serve the PoC on every path with HTTP 200 (stronger evidence than
+# a 404). Static files on disk still win, so /assets/* is unaffected.
+# Cloudflare Pages ignores 200-rewrites here and falls back to 404.html.
+/*  /index.html  200
